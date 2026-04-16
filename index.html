@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador C - Recursão AdminLTE</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+
+    <style>
+        /* Ajustes finos do Editor de Código */
+        .editor-box {
+            background-color: #282c34;
+            color: #abb2bf;
+            font-family: 'Fira Code', Consolas, monospace;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 15px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .token.comment { color: #5c6370; font-style: italic; }
+        .token.keyword { color: #c678dd; }
+        .token.type { color: #e5c07b; }
+        .token.function { color: #61afef; }
+        .token.string { color: #98c379; }
+        .token.number { color: #d19a66; }
+
+        /* Estilização da Árvore Visual (Mais Visível) */
+        .tree-container {
+            background-color: #343a40; /* Fundo escuro do card */
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #4b545c;
+        }
+        .tree-list {
+            list-style-type: none;
+            padding-left: 30px;
+        }
+        .tree-root { padding-left: 0; }
+        .tree-list li {
+            margin: 12px 0;
+            position: relative;
+        }
+        /* Linhas horizontais da árvore */
+        .tree-list li::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: -25px;
+            width: 20px;
+            border-top: 2px solid #6c757d;
+        }
+        .tree-root > li::before { display: none; }
+        /* Linha vertical conectando os nós */
+        .tree-list ul {
+            border-left: 2px solid #6c757d;
+            margin-left: -5px;
+            padding-left: 30px;
+        }
+        .badge-tree { font-size: 14px; padding: 6px 10px; }
+
+        /* Terminal simulado */
+        .console {
+            background: #000;
+            color: #0f0;
+            font-family: Consolas, monospace;
+            padding: 15px;
+            height: 180px;
+            overflow-y: auto;
+            border-radius: 4px;
+        }
+        .blinking-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #0f0;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    </style>
+</head>
+<body class="hold-transition layout-top-nav dark-mode">
+<div class="wrapper">
+
+    <nav class="main-header navbar navbar-expand navbar-dark">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <i class="fas fa-microchip mr-2"></i>
+                <span class="brand-text font-weight-light">Simulador C <strong>AdminLTE</strong></span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Algoritmo de Fibonacci</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <div class="col-lg-6">
+                        
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-code mr-2"></i> main.c</h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="editor-box rounded-0">
+<span class="token comment">#include &lt;stdio.h&gt;</span><br><br>
+<span class="token type">long</span> <span class="token function">fib</span>(<span class="token type">int</span> n) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">if</span> (n &lt;= <span class="token number">1</span>) <span class="token comment">// Caso Base</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">return</span> n;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="token comment">// Passo Recursivo</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">return</span> <span class="token function">fib</span>(n-<span class="token number">1</span>) + <span class="token function">fib</span>(n-<span class="token number">2</span>);<br>
+}<br><br>
+<span class="token type">int</span> <span class="token function">main</span>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="token type">int</span> n = <span class="token number" id="display-n">4</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="token function">printf</span>(<span class="token string">"Fibonacci(%d) = %ld\n"</span>, n, <span class="token function">fib</span>(n));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">return</span> <span class="token number">0</span>;<br>
+}
+                                </div>
+                            </div>
+                            <div class="card-footer bg-dark">
+                                <form class="form-inline" onsubmit="event.preventDefault(); runSimulation();">
+                                    <div class="form-group mr-3">
+                                        <label for="input-n" class="mr-2">Valor de n:</label>
+                                        <input type="number" id="input-n" class="form-control text-center" value="4" min="0" max="35" style="width: 80px;">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-play mr-1"></i> Compilar & Executar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card card-dark">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-terminal mr-2"></i> Terminal de Saída</h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="console" id="console-output">
+                                    <span>$ Aguardando execução...</span><span class="blinking-cursor"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        
+                        <div class="card card-info card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-book-open mr-2"></i> Compreendendo a Recursão</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>A recursão ocorre quando a função divide o problema original em subproblemas do mesmo tipo, invocando a si mesma.</p>
+                                <div class="alert alert-secondary">
+                                    <h5><i class="icon fas fa-info"></i> Estrutura do Fibonacci</h5>
+                                    <ul class="mb-0">
+                                        <li><strong>Caso Base:</strong> Interrompe a execução quando <code>n &le; 1</code>.</li>
+                                        <li><strong>Ramificação:</strong> A função se divide em duas: <code>fib(n-1)</code> e <code>fib(n-2)</code>.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-warning card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-sitemap mr-2"></i> Árvore de Chamadas (Call Tree)</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted text-sm mb-2">Execute o código (para n &le; 6) para gerar o diagrama visual da memória.</p>
+                                <div class="tree-container" id="tree-display">
+                                    <span class="text-muted">Nenhuma árvore gerada ainda.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="main-footer text-center">
+        <strong>Simulador Web C &copy; 2024.</strong> Utilizando Bootstrap 4 & AdminLTE 3.
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
+<script>
+    // Atualiza o valor no editor em tempo real
+    document.getElementById('input-n').addEventListener('input', function(e) {
+        let val = e.target.value;
+        if(val === '') val = '0';
+        document.getElementById('display-n').innerText = val;
+    });
+
+    // Lógica real do Fibonacci
+    function fibonacci(n) {
+        if (n <= 1) return n;
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+
+    // Gerador de Árvore DOM/HTML
+    function generateTreeHTML(n) {
+        // Caso Base: Destacado em verde
+        if (n <= 1) {
+            return `<li><span class="badge badge-success badge-tree">fib(${n}) &rarr; ${n}</span></li>`;
+        }
+        
+        // Passo Recursivo: Destacado em azul e abre uma nova sub-lista (ramificação)
+        let html = `<li><span class="badge badge-primary badge-tree">fib(${n})</span>`;
+        html += `<ul class="tree-list">`;
+        html += generateTreeHTML(n - 1); // Ramo esquerdo
+        html += generateTreeHTML(n - 2); // Ramo direito
+        html += `</ul></li>`;
+        
+        return html;
+    }
+
+    function runSimulation() {
+        const consoleOutput = document.getElementById('console-output');
+        const treeDisplay = document.getElementById('tree-display');
+        const n = parseInt(document.getElementById('input-n').value);
+
+        if (isNaN(n) || n < 0) {
+            consoleOutput.innerHTML = `<span class="text-danger">$ Erro fatal: Valor inválido.</span><span class="blinking-cursor"></span>`;
+            return;
+        }
+
+        // Gera e injeta a árvore no DOM
+        if (n <= 6) {
+            treeDisplay.innerHTML = `<ul class="tree-list tree-root">${generateTreeHTML(n)}</ul>`;
+        } else {
+            treeDisplay.innerHTML = `<div class="alert alert-danger text-center"><i class="fas fa-exclamation-triangle"></i><br>A árvore para <b>fib(${n})</b> possui muitos nós.<br>O navegador bloquearia para renderizar essa complexidade O(2^n).</div>`;
+        }
+
+        // Simula Execução no Terminal
+        consoleOutput.innerHTML = `$ gcc main.c -o main<br>$ ./main<br><br>`;
+        
+        setTimeout(() => {
+            const startTime = performance.now();
+            const result = fibonacci(n);
+            const endTime = performance.now();
+            
+            consoleOutput.innerHTML += `Fibonacci(${n}) = ${result}<br><br>`;
+            consoleOutput.innerHTML += `<span class="text-muted">[Processo concluído em ${(endTime - startTime).toFixed(2)}ms]</span><br>$ <span class="blinking-cursor"></span>`;
+            
+            // Rola o console para o final
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }, 300);
+    }
+</script>
+</body>
+</html>
